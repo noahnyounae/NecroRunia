@@ -7,6 +7,10 @@ import org.bukkit.inventory.meta.ItemMeta;
 
 import java.util.ArrayList;
 import java.util.List;
+import java.util.UUID;
+
+import static java.lang.Math.max;
+import static java.lang.Math.min;
 
 public class ItemStackModel {
 
@@ -79,6 +83,17 @@ public class ItemStackModel {
         return this;
     }
 
+    public ItemStackModel SetUUID(UUID uuid){
+        ItemMeta itemMeta = _itemStack.getItemMeta();
+        assert itemMeta != null;
+        List<String> lore = itemMeta.getLore();
+        assert lore != null;
+        lore.add(uuid.toString());
+        itemMeta.setLore(lore);
+        _itemStack.setItemMeta(itemMeta);
+        return this;
+    }
+
     //endregion
 
     //region Get
@@ -86,10 +101,17 @@ public class ItemStackModel {
         return _itemStack;
     }
 
+    public UUID GetUUID() {
+        ItemMeta itemMeta = _itemStack.getItemMeta();
+        assert itemMeta != null;
+        List<String> lore = itemMeta.getLore();
+        assert lore != null;
+        return UUID.fromString(lore.get(lore.size() - 1));
+    }
     //endregion
 
     //region Eraser
-    private ItemStackModel eraser(){
+    public ItemStackModel eraser(){
         ItemMeta itemMeta = _itemStack.getItemMeta();
 
         assert itemMeta != null;
