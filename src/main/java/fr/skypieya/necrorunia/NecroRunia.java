@@ -2,18 +2,20 @@ package fr.skypieya.necrorunia;
 
 import fr.skypieya.necrorunia.Enum.ItemStackEnum;
 import fr.skypieya.necrorunia.Enum.SkullEnum;
+import fr.skypieya.necrorunia.managers.PlayerManager;
+import fr.skypieya.necrorunia.managers.SoulManager;
 import fr.skypieya.necrorunia.models.ItemStackModel;
-import fr.skypieya.necrorunia.utils.ItemUtil;
-import fr.skypieya.necrorunia.utils.MenuUtil;
-import fr.skypieya.necrorunia.utils.SkullUtil;
-import org.bukkit.Bukkit;
+import fr.skypieya.necrorunia.utils.*;
 import org.bukkit.ChatColor;
 import org.bukkit.Location;
+import org.bukkit.Material;
+import org.bukkit.enchantments.Enchantment;
 import org.bukkit.event.EventHandler;
 import org.bukkit.event.Listener;
 import org.bukkit.event.player.PlayerInteractAtEntityEvent;
 import org.bukkit.event.player.PlayerToggleSneakEvent;
 import org.bukkit.inventory.ItemStack;
+import org.bukkit.plugin.PluginManager;
 import org.bukkit.plugin.java.JavaPlugin;
 
 import java.util.Objects;
@@ -28,6 +30,11 @@ public final class NecroRunia extends JavaPlugin {
     private MenuUtil _menuUtil;
     private ItemUtil _itemUtil;
     private SkullUtil _skullUtil;
+    private DatabaseUtil _dataDatabaseUtil;
+    private PlayerSkullMenuUtil _playerSkullMenuUtil;
+    private SoulManager _soulManager;
+    private RandomUtil _randomUtil;
+    private PlayerManager _playerManager;
     private static NecroRunia INSTANCE;
 
     @Override
@@ -45,10 +52,18 @@ public final class NecroRunia extends JavaPlugin {
         _menuUtil = new MenuUtil();
         _itemUtil = new ItemUtil();
         _skullUtil = new SkullUtil();
+        _dataDatabaseUtil = new DatabaseUtil();
+        _playerSkullMenuUtil = new PlayerSkullMenuUtil();
+        _randomUtil = new RandomUtil();
+        _soulManager = new SoulManager();
+        _playerManager = new PlayerManager();
     }
 
     private void listeners(){
-        this.getServer().getPluginManager().registerEvents(new TempListeners(), this);
+        PluginManager pluginManager = this.getServer().getPluginManager();
+        pluginManager.registerEvents(new TempListeners(), this);
+        pluginManager.registerEvents(_playerManager.playerManagerListener , this);
+        pluginManager.registerEvents(_soulManager.soulListener, this);
     }
 
     @Override
@@ -62,6 +77,11 @@ public final class NecroRunia extends JavaPlugin {
     }
     public ItemUtil GetItemUtil(){return  _itemUtil;}
     public SkullUtil GetSkullUtil(){return  _skullUtil;}
+    public DatabaseUtil GetDatabaseUtil(){return _dataDatabaseUtil;}
+    public PlayerSkullMenuUtil GetPlayerSkullMenuUtil(){return _playerSkullMenuUtil;}
+    public SoulManager GetSoulManager(){return _soulManager;}
+    public RandomUtil GetRandUtil(){return _randomUtil;}
+    public PlayerManager GetPlayerManager(){return _playerManager;}
     public static NecroRunia getPlugin() {
         return INSTANCE;
     }
@@ -86,5 +106,8 @@ class TempListeners implements Listener {
     @EventHandler
     public void OnPlayerCrouch(PlayerToggleSneakEvent e){
         e.getPlayer().getInventory().addItem(NecroRunia.getPlugin().GetItemUtil().Get(ItemStackEnum.NecroStaff));
+        e.getPlayer().getInventory().addItem(new ItemStackModel(new ItemStack(Material.DIAMOND_SWORD))
+                .AddEnchant(Enchantment.DAMAGE_ALL, 1000)
+                .GetItemStack());
     }
 }
