@@ -2,7 +2,9 @@ package fr.skypieya.necrorunia;
 
 import fr.skypieya.necrorunia.Enum.ItemStackEnum;
 import fr.skypieya.necrorunia.Enum.SkullEnum;
+import fr.skypieya.necrorunia.managers.DatabaseManager;
 import fr.skypieya.necrorunia.managers.PlayerManager;
+import fr.skypieya.necrorunia.managers.SkullManager;
 import fr.skypieya.necrorunia.managers.SoulManager;
 import fr.skypieya.necrorunia.models.ItemStackModel;
 import fr.skypieya.necrorunia.utils.*;
@@ -19,6 +21,7 @@ import org.bukkit.plugin.PluginManager;
 import org.bukkit.plugin.java.JavaPlugin;
 
 import java.util.Objects;
+import java.util.UUID;
 
 
 ///////////////////////////////////////////////////////////////////////////////////////
@@ -29,12 +32,12 @@ public final class NecroRunia extends JavaPlugin {
 
     private MenuUtil _menuUtil;
     private ItemUtil _itemUtil;
-    private SkullUtil _skullUtil;
-    private DatabaseUtil _dataDatabaseUtil;
     private PlayerSkullMenuUtil _playerSkullMenuUtil;
-    private SoulManager _soulManager;
     private RandomUtil _randomUtil;
+    private SoulManager _soulManager;
     private PlayerManager _playerManager;
+    private DatabaseManager _databaseManager;
+    private SkullManager _skullManager;
     private static NecroRunia INSTANCE;
 
     @Override
@@ -51,12 +54,12 @@ public final class NecroRunia extends JavaPlugin {
         INSTANCE = this;
         _menuUtil = new MenuUtil();
         _itemUtil = new ItemUtil();
-        _skullUtil = new SkullUtil();
-        _dataDatabaseUtil = new DatabaseUtil();
         _playerSkullMenuUtil = new PlayerSkullMenuUtil();
         _randomUtil = new RandomUtil();
         _soulManager = new SoulManager();
         _playerManager = new PlayerManager();
+        _databaseManager = new DatabaseManager();
+        _skullManager = new SkullManager();
     }
 
     private void listeners(){
@@ -76,12 +79,12 @@ public final class NecroRunia extends JavaPlugin {
         return _menuUtil;
     }
     public ItemUtil GetItemUtil(){return  _itemUtil;}
-    public SkullUtil GetSkullUtil(){return  _skullUtil;}
-    public DatabaseUtil GetDatabaseUtil(){return _dataDatabaseUtil;}
+    public SkullManager GetSkullManager(){return  _skullManager;}
     public PlayerSkullMenuUtil GetPlayerSkullMenuUtil(){return _playerSkullMenuUtil;}
-    public SoulManager GetSoulManager(){return _soulManager;}
     public RandomUtil GetRandUtil(){return _randomUtil;}
+    public SoulManager GetSoulManager(){return _soulManager;}
     public PlayerManager GetPlayerManager(){return _playerManager;}
+    public DatabaseManager GetDatabaseManager(){return _databaseManager;}
     public static NecroRunia getPlugin() {
         return INSTANCE;
     }
@@ -95,7 +98,7 @@ class TempListeners implements Listener {
     @EventHandler
     public void OnPlayerInteract(PlayerInteractAtEntityEvent e){
         if(new ItemStackModel(e.getPlayer().getInventory().getItemInMainHand()).GetUUID().equals(ItemStackEnum.NecroStaff.Get_UUID())){
-            ItemStack head = NecroRunia.getPlugin().GetSkullUtil().GetHead(e.getRightClicked().getType());
+            ItemStack head = NecroRunia.getPlugin().GetSkullManager().GetHead(e.getRightClicked().getType()).GetSkull();
             if(head != SkullEnum.Default.Get_ItemStack()){
                 Location location = e.getRightClicked().getLocation();
                 Objects.requireNonNull(location.getWorld()).dropItem(location, head);

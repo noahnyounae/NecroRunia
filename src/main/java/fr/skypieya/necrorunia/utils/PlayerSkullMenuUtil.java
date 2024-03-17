@@ -1,7 +1,6 @@
 package fr.skypieya.necrorunia.utils;
 
-import fr.skypieya.necrorunia.NecroRunia;
-import fr.skypieya.necrorunia.models.PlayerSkullMenuModel;
+import fr.skypieya.necrorunia.models.PlayerSoulMenuModel;
 import org.bukkit.event.EventHandler;
 import org.bukkit.event.Listener;
 import org.bukkit.event.player.PlayerJoinEvent;
@@ -10,7 +9,7 @@ import java.util.HashMap;
 import java.util.UUID;
 
 public class PlayerSkullMenuUtil {
-    public HashMap<UUID, PlayerSkullMenuModel> PlayerSkullMenuModels= new HashMap<>();
+    public HashMap<UUID, PlayerSoulMenuModel> PlayerSkullMenuModels= new HashMap<>();
 
     public PlayerSkullMenuUtil(){}
 
@@ -28,7 +27,7 @@ class PlayerSkullMenuUtilListener implements Listener{
         UUID uuid = e.getPlayer().getUniqueId();
         if(!_playerSkullMenuUtil.PlayerSkullMenuModels.containsKey(uuid)){
             _playerSkullMenuUtil.PlayerSkullMenuModels.put(uuid,
-                    new PlayerSkullMenuModel(54, e.getPlayer(), e.getPlayer().getName() + "'s Menu", uuid));
+                    new PlayerSoulMenuModel(54, e.getPlayer(), e.getPlayer().getName() + "'s Menu", uuid));
         }
 
     }

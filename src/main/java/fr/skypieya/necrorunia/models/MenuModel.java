@@ -122,7 +122,7 @@ public class MenuModel {
     }
     //endregion
 
-    //region GSON
+    //region STR
     public static String toBase64(Inventory inventory) throws IllegalStateException {
         try {
             ByteArrayOutputStream outputStream = new ByteArrayOutputStream();

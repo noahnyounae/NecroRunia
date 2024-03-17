@@ -11,13 +11,14 @@ import org.bukkit.profile.PlayerProfile;
 import java.util.HashMap;
 
 public class SkullModel {
-    public SkullModel(){}
-
-    public ItemStack createMobHead(SkullEnum skullEnum){
+    private final ItemStack _itemStack;
+    public SkullModel(SkullEnum skullEnum){
         ItemStack itemStack = skullEnum.Get_ItemStack();
-        if(itemStack != null){
-            return itemStack;
-        }
-        return new ItemStack(Material.PLAYER_HEAD);
+        _itemStack = (itemStack == null)
+            ? SkullEnum.Default.Get_ItemStack()
+                : itemStack;
     }
+
+    public ItemStack GetSkull(){return _itemStack;}
+    public ItemStack GetItemStack(){return _itemStack;}
 }
