@@ -1,5 +1,6 @@
-package fr.skypieya.necrorunia.models;
+package fr.skypieya.necrorunia.entity.soul;
 
+import fr.skypieya.necrorunia.inventory.MenuModel;
 import org.bukkit.inventory.InventoryHolder;
 
 import java.io.IOException;

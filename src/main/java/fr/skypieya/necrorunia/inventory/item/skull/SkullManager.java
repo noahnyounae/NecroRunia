@@ -1,18 +1,15 @@
-package fr.skypieya.necrorunia.managers;
+package fr.skypieya.necrorunia.inventory.item.skull;
 
-import fr.skypieya.necrorunia.Enum.SkullEnum;
-import fr.skypieya.necrorunia.models.SkullModel;
-import org.bukkit.Material;
 import org.bukkit.entity.EntityType;
-import org.bukkit.inventory.ItemStack;
 
 import java.util.HashMap;
 
-public class SkullManager {
+public final class SkullManager {
 
     private final HashMap<EntityType, SkullEnum> _entitySkulls = new HashMap<>();
-
+    private static SkullManager INSTANCE;
     public SkullManager() {
+        INSTANCE = this;
         _entitySkulls.put(EntityType.ZOMBIE, SkullEnum.ZOMBIE);
         _entitySkulls.put(EntityType.CREEPER, SkullEnum.CREEPER);
         _entitySkulls.put(EntityType.SKELETON, SkullEnum.SKELETON);
@@ -26,4 +23,6 @@ public class SkullManager {
     public HashMap<EntityType, SkullEnum> GetEntitySkulls(){
         return _entitySkulls;
     }
+
+    public static SkullManager getINSTANCE() {return INSTANCE;}
 }

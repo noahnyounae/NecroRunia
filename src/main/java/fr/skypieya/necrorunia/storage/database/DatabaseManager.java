@@ -1,7 +1,6 @@
-package fr.skypieya.necrorunia.managers;
+package fr.skypieya.necrorunia.storage.database;
 
 import fr.skypieya.necrorunia.NecroRunia;
-import fr.skypieya.necrorunia.models.DatabaseModel;
 import org.bukkit.configuration.file.YamlConfiguration;
 
 import java.io.File;
@@ -13,8 +12,11 @@ public class DatabaseManager {
 
     private final String _dataName = "Data.";
     public HashMap<UUID, DatabaseModel> DatabaseModels = new HashMap<>();
+    private static DatabaseManager INSTANCE;
 
-    public DatabaseManager(){}
+    public DatabaseManager(){
+        INSTANCE = this;
+    }
 
     //region Database Fonctions
     public void Save(DatabaseModel databaseModel) {
@@ -77,4 +79,5 @@ public class DatabaseManager {
     //endregion
 
     public String GetDataName(){return _dataName;}
+    public static DatabaseManager getINSTANCE(){return INSTANCE;}
 }

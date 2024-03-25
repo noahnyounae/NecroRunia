@@ -1,6 +1,5 @@
-package fr.skypieya.necrorunia.models;
+package fr.skypieya.necrorunia.storage.database;
 
-import fr.skypieya.necrorunia.NecroRunia;
 import org.bukkit.configuration.file.YamlConfiguration;
 
 import java.io.File;
@@ -47,14 +46,14 @@ public class DatabaseModel {
 
     public DatabaseModel Load(){
         YamlConfiguration config = YamlConfiguration.loadConfiguration(this._file);
-        this._value = (String) config.get(NecroRunia.getPlugin().GetDatabaseManager().GetDataName() +  this._key);
+        this._value = (String) config.get(DatabaseManager.getINSTANCE().GetDataName() +  this._key);
         return this;
     }
 
     private void update(){
         YamlConfiguration config = YamlConfiguration.loadConfiguration(this._file);
         config.createSection("Data");
-        config.set(NecroRunia.getPlugin().GetDatabaseManager().GetDataName() +  this._key,
+        config.set(DatabaseManager.getINSTANCE().GetDataName() +  this._key,
                 this._value);
         try {
             config.save(this._file);

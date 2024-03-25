@@ -1,14 +1,7 @@
-package fr.skypieya.necrorunia.models;
+package fr.skypieya.necrorunia.inventory.item.skull;
 
-import fr.skypieya.necrorunia.Enum.SkullEnum;
-import org.bukkit.Bukkit;
-import org.bukkit.Material;
-import org.bukkit.entity.EntityType;
+import fr.skypieya.necrorunia.inventory.item.skull.SkullEnum;
 import org.bukkit.inventory.ItemStack;
-import org.bukkit.inventory.meta.SkullMeta;
-import org.bukkit.profile.PlayerProfile;
-
-import java.util.HashMap;
 
 public class SkullModel {
     private final ItemStack _itemStack;

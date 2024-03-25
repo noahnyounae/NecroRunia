@@ -1,4 +1,4 @@
-package fr.skypieya.necrorunia.Enum;
+package fr.skypieya.necrorunia.inventory.item.skull;
 
 import org.bukkit.Material;
 import org.bukkit.inventory.ItemStack;

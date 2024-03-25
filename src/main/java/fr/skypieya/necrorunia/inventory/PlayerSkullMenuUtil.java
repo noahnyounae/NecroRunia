@@ -1,6 +1,6 @@
-package fr.skypieya.necrorunia.utils;
+package fr.skypieya.necrorunia.inventory;
 
-import fr.skypieya.necrorunia.models.PlayerSoulMenuModel;
+import fr.skypieya.necrorunia.entity.soul.PlayerSoulMenuModel;
 import org.bukkit.event.EventHandler;
 import org.bukkit.event.Listener;
 import org.bukkit.event.player.PlayerJoinEvent;

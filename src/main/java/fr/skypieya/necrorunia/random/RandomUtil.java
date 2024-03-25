@@ -1,4 +1,4 @@
-package fr.skypieya.necrorunia.utils;
+package fr.skypieya.necrorunia.random;
 
 import java.util.Random;
 

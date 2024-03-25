@@ -1,10 +1,8 @@
-package fr.skypieya.necrorunia.utils;
+package fr.skypieya.necrorunia.inventory;
 
-import fr.skypieya.necrorunia.models.ItemStackModel;
-import fr.skypieya.necrorunia.models.MenuModel;
+import fr.skypieya.necrorunia.inventory.item.ItemStackModel;
+import fr.skypieya.necrorunia.inventory.MenuModel;
 import org.bukkit.Material;
-import org.bukkit.entity.Entity;
-import org.bukkit.entity.EntityType;
 import org.bukkit.entity.Player;
 import org.bukkit.inventory.ItemStack;
 

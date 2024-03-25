@@ -1,4 +1,4 @@
-package fr.skypieya.necrorunia.models;
+package fr.skypieya.necrorunia.inventory;
 
 import org.bukkit.Bukkit;
 import org.bukkit.Material;
@@ -18,7 +18,7 @@ import java.util.HashMap;
 public class MenuModel {
 
     //region Variables
-    Inventory _inventory;
+    protected Inventory _inventory;
 
     //endregion
 

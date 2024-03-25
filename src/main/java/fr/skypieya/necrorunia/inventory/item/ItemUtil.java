@@ -1,18 +1,16 @@
-package fr.skypieya.necrorunia.utils;
+package fr.skypieya.necrorunia.inventory.item;
 
-import fr.skypieya.necrorunia.Enum.ItemStackEnum;
-import fr.skypieya.necrorunia.models.ItemStackModel;
 import org.bukkit.Material;
 import org.bukkit.inventory.ItemStack;
 
 import java.util.Arrays;
 
-public class ItemUtil {
-
+public final class ItemUtil {
+    private static ItemUtil INSTANCE;
     public ItemUtil(){}
 
-    public ItemStack Get(ItemStackEnum itemStackEnum){
-        return (itemStackEnum == ItemStackEnum.NecroStaff) ? itemNecroStaff(itemStackEnum)
+    public ItemStack Get(ItemEnum itemStackEnum){
+        return (itemStackEnum == ItemEnum.NecroStaff) ? itemNecroStaff(itemStackEnum)
         //: (itemStackEnum == ItemStackEnum.NecroStaff) ? itemNecroStaff()
         : Default();
     }
@@ -22,12 +20,12 @@ public class ItemUtil {
                 .AddEnchant()
                 .SetDisplayName("Default Item Stack")
                 .SetLore(Arrays.asList("Default Item Stack",""))
-                .SetUUID(ItemStackEnum.Default.Get_UUID())
+                .SetUUID(ItemEnum.Default.Get_UUID())
                 .eraser()
                 .GetItemStack();
     }
 
-    private ItemStack itemNecroStaff(ItemStackEnum itemStackEnum){
+    private ItemStack itemNecroStaff(ItemEnum itemStackEnum){
         return new ItemStackModel(new ItemStack(Material.STICK))
                 .AddEnchant()
                 .SetDisplayName("NecroStaff")
@@ -37,4 +35,5 @@ public class ItemUtil {
                 .eraser()
                 .GetItemStack();
     }
+    public static ItemUtil getINSTANCE(){return INSTANCE;}
 }

@@ -1,8 +1,7 @@
-package fr.skypieya.necrorunia.managers;
+package fr.skypieya.necrorunia.entity.soul;
 
-import fr.skypieya.necrorunia.NecroRunia;
-import fr.skypieya.necrorunia.models.PlayerModel;
-import fr.skypieya.necrorunia.models.SoulModel;
+import fr.skypieya.necrorunia.entity.player.PlayerModel;
+import fr.skypieya.necrorunia.entity.player.PlayerManager;
 import org.bukkit.Bukkit;
 import org.bukkit.ChatColor;
 import org.bukkit.World;
@@ -17,11 +16,13 @@ import org.bukkit.event.player.PlayerInteractAtEntityEvent;
 import java.util.ArrayList;
 import java.util.List;
 
-public class SoulManager {
+public final class SoulManager {
     private final float _soulDelayDeltaSec = 0.25f;
+    private static SoulManager INSTANCE;
     public final SoulListener soulListener = new SoulListener();
     public final List<SoulModel> souls = new ArrayList<>();
     public SoulManager(){
+        INSTANCE = this;
         for(World world: Bukkit.getWorlds()){
             for(Entity entity: world.getEntities()){
                 if(entity instanceof LivingEntity){
@@ -57,6 +58,7 @@ public class SoulManager {
         }
         return null;
     }
+    public static SoulManager getINSTANCE(){return INSTANCE;}
 }
 
 class SoulListener implements Listener {
@@ -66,9 +68,9 @@ class SoulListener implements Listener {
         if(dead.getLastDamageCause() != null) {
             if (dead.getLastDamageCause().getDamageSource().getCausingEntity() instanceof Player) {
                 Player player = (Player) dead.getLastDamageCause().getDamageSource().getCausingEntity();
-                SoulManager soulManager = NecroRunia.getPlugin().GetSoulManager();
+                SoulManager soulManager = SoulManager.getINSTANCE();
                 soulManager.souls.add(new SoulModel(dead,
-                        soulManager.GetSoulDelaySec(NecroRunia.getPlugin().GetPlayerManager().GetPlayerModel(player))));
+                        soulManager.GetSoulDelaySec(PlayerManager.getINSTANCE().GetPlayerModel(player))));
             }
         }
     }
@@ -77,9 +79,9 @@ class SoulListener implements Listener {
     public  void onPlayerAtInteractEntity(PlayerInteractAtEntityEvent e){
         if(e.getRightClicked() instanceof LivingEntity){
             LivingEntity livingEntity = (LivingEntity) e.getRightClicked();
-            SoulModel soulModel = NecroRunia.getPlugin().GetSoulManager().GetSoulModelFromLivingEntity(livingEntity);
+            SoulModel soulModel = SoulManager.getINSTANCE().GetSoulModelFromLivingEntity(livingEntity);
             if(soulModel != null){
-                NecroRunia.getPlugin().GetPlayerManager().GetPlayerModel(e.getPlayer())
+                PlayerManager.getINSTANCE().GetPlayerModel(e.getPlayer())
                         .PlayerInteractWithSoul(soulModel);
             }
 

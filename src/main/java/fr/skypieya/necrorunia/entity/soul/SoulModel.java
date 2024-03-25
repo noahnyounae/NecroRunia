@@ -1,22 +1,13 @@
-package fr.skypieya.necrorunia.models;
+package fr.skypieya.necrorunia.entity.soul;
 
 import fr.skypieya.necrorunia.NecroRunia;
-import org.bukkit.Bukkit;
+import fr.skypieya.necrorunia.entity.CustomEntityModel;
 import org.bukkit.ChatColor;
-import org.bukkit.Location;
 import org.bukkit.attribute.Attribute;
-import org.bukkit.entity.Entity;
-import org.bukkit.entity.EntityType;
 import org.bukkit.entity.LivingEntity;
-import org.bukkit.entity.Player;
-import org.bukkit.event.EventHandler;
-import org.bukkit.event.Listener;
-import org.bukkit.event.entity.EntityDeathEvent;
 import org.bukkit.potion.PotionEffect;
 import org.bukkit.potion.PotionEffectType;
 import org.bukkit.scheduler.BukkitRunnable;
-
-import java.util.Objects;
 
 public class SoulModel {
     private final LivingEntity _livingEntity;
